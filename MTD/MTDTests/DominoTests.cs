@@ -96,7 +96,7 @@ namespace MTDTests
         }
 
         [Test]
-        public void TestFlip()
+        public void TestFlip() //flips the values of sides ex. flipping the domino around
         {
             d12.Flip();
             Assert.AreEqual(2, d12.Side1);
