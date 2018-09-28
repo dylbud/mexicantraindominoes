@@ -21,12 +21,15 @@ namespace MTDClasses
 
         }
 
+        private int side1;
+        private int side2;
+
         // don't use an auto implemented property because of the validation in the setter - p 390
-        public int Side1
+        public int Side1 //checks the value of side 1 not a negative number or greater than 12
         {
             get
             {
-                return Side1;
+                return side1;
             }
             set
             {
@@ -34,16 +37,16 @@ namespace MTDClasses
                 {
                     throw new ArgumentException("The value of aside must be greater than 0 and less than 12");
                 }
-                Side1 = value;
+                side1 = value;
             }
         }
 
 
-        public int Side2
+        public int Side2 //checks the value of side 2 not a negative number or greater than 12
         {
             get
             {
-                return Side2;
+                return side2;
             }
             set
             {
@@ -51,12 +54,19 @@ namespace MTDClasses
                 {
                     throw new ArgumentException("The value of aside must be greater than 0 and less than 12");
                 }
-                Side2 = value;
+                side2 = value;
             }
         }
 
         public void Flip() //flips the values of sides ex. flipping the domino around
         {
+            int valueHolder;
+
+            valueHolder = side1;
+
+            side1 = side2;
+
+            side2 = valueHolder;
         }
 
         /// This is how I would have done this in 233N
@@ -68,17 +78,21 @@ namespace MTDClasses
             }
 
         }
-       
+
         // because it's a read only property, I can use the "expression bodied syntax" or a lamdba expression - p 393
         //public int Score => Side1 + Side2;
 
         //ditto for the first version of this method and the next one
         public bool IsDouble()
         {
-            
+
             if (Side1 == Side2)
             {
                 return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -101,13 +115,18 @@ namespace MTDClasses
         // could you overload the == and != operators?
         public override bool Equals(object obj)
         {
-            if  (obj == null)
+            if (obj == null)
             {
                 return false;
             }
-            if (obj != null)
+            Domino d = (Domino)obj;
+            if (Side1 == d.Side1 && Side2 == d.Side2)
             {
                 return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
