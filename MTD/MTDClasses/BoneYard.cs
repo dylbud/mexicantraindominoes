@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace MTDClasses
 {
+    /// <summary>
+    /// Boneyard Class
+    /// </summary>
     public class BoneYard
     {
-       private List<Domino> listOfDominoes = new List<Domino>(); 
+       private List<Domino> listOfDominoes = new List<Domino>();
 
-        public BoneYard(int maxDots) //populates the list of all possible combinations from double blank to double maxDots
+        /// <summary>
+        /// Constructor populates the list of all possible combinations from double blank to double maxDots
+        /// </summary>
+        /// <param name="maxDots"></param>
+        public BoneYard(int maxDots) 
         { 
                       
             for ( int i = 0; i<= maxDots; i++)
@@ -26,7 +33,10 @@ namespace MTDClasses
             Shuffle(); //Shuffles each time a new instance is started
         }
 
-        public void Shuffle() //Shuffles the boneYard list
+        /// <summary>
+        /// Shuffles the boneYard list
+        /// </summary>
+        public void Shuffle() 
         {
             List<Domino> randomList = new List<Domino>();
             Random r = new Random();
@@ -40,8 +50,11 @@ namespace MTDClasses
             listOfDominoes = randomList;
         }
 
-
-        public bool IsEmpty() //Checks to see if the list is empty
+        /// <summary>
+        /// Checks to see if the list is empty
+        /// </summary>
+        /// <returns>bool</returns>
+        public bool IsEmpty() 
         {
             if (DominosRemaining == 0)
             {
@@ -53,7 +66,10 @@ namespace MTDClasses
             }
         }
 
-        public int DominosRemaining // Counts all the dominoes in the boneyard at any point
+        /// <summary>
+        /// Counts all the dominoes in the boneyard at any point
+        /// </summary>
+        public int DominosRemaining 
         {
             get
             {
@@ -61,7 +77,11 @@ namespace MTDClasses
             }
         }
 
-        public Domino Draw() //Draws a Domino from the boneYard.
+        /// <summary>
+        /// Draws a Domino from the boneYard.
+        /// </summary>
+        /// <returns>Domino</returns>
+        public Domino Draw() 
         {
             
             //write random number generator between 0 and dominoes remaining -1
@@ -74,7 +94,12 @@ namespace MTDClasses
             return domino;
         }
 
-        public Domino this[int index] // gets and sets the domino in the list at a specific index
+        /// <summary>
+        ///  gets and sets the domino in the list at a specific index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>Domino</returns>
+        public Domino this[int index] 
         {
             get
             {
@@ -88,7 +113,11 @@ namespace MTDClasses
             }
         }
 
-        public override string ToString() //Return a string list of what is in the boneyard
+        /// <summary>
+        /// Return a string list of what is in the boneyard
+        /// </summary>
+        /// <returns>string</returns>
+        public override string ToString() 
         {
             if (this.IsEmpty())
             {

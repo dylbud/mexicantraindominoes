@@ -6,14 +6,25 @@ using System.Threading.Tasks;
 
 namespace MTDClasses
 {
+    /// <summary>
+    /// The Domino class
+    /// </summary>
     [Serializable()]
     public class Domino
     {
 
+        /// <summary>
+        /// Domino constructor
+        /// </summary>
         public Domino()
         {
         }
 
+        /// <summary>
+        /// Domino constructor with sides
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
         public Domino(int p1, int p2)
         {
             this.Side1 = p1;
@@ -25,7 +36,10 @@ namespace MTDClasses
         private int side2;
 
         // don't use an auto implemented property because of the validation in the setter - p 390
-        public int Side1 //checks the value of side 1 not a negative number or greater than 12
+        /// <summary>
+        /// checks the value of side 1 not a negative number or greater than 12
+        /// </summary>
+        public int Side1 
         {
             get
             {
@@ -41,8 +55,10 @@ namespace MTDClasses
             }
         }
 
-
-        public int Side2 //checks the value of side 2 not a negative number or greater than 12
+        /// <summary>
+        /// checks the value of side 2 not a negative number or greater than 12
+        /// </summary>
+        public int Side2 
         {
             get
             {
@@ -58,7 +74,10 @@ namespace MTDClasses
             }
         }
 
-        public void Flip() //flips the values of sides ex. flipping the domino around
+        /// <summary>
+        /// flips the values of sides ex. flipping the domino around
+        /// </summary>
+        public void Flip() 
         {
             int valueHolder;
 
@@ -69,7 +88,10 @@ namespace MTDClasses
             side2 = valueHolder;
         }
 
-        /// This is how I would have done this in 233N
+       /// <summary>
+       /// gets the score 
+       /// </summary>
+
         public int Score
         {
             get
@@ -83,6 +105,10 @@ namespace MTDClasses
         //public int Score => Side1 + Side2;
 
         //ditto for the first version of this method and the next one
+        /// <summary>
+        /// checks to see if the domino is a double
+        /// </summary>
+        /// <returns>bool</returns>
         public bool IsDouble()
         {
 
@@ -97,6 +123,9 @@ namespace MTDClasses
         }
 
         // could you do this one using a lambda expression?
+        /// <summary>
+        /// Gets the filename of the domino images
+        /// </summary>
         public string Filename
         {
             get
@@ -107,12 +136,23 @@ namespace MTDClasses
 
         //public bool IsDouble() => (side1 == side2) ? true : false;
 
+        
+        /// <summary>
+        /// returns a string of the value of the domino sides
+        /// </summary>
+        /// <returns>string</returns>
         public override string ToString()
         {
             return String.Format("Side 1: {0}  Side 2: {1}", Side1, Side2);
         }
 
         // could you overload the == and != operators?
+
+        /// <summary>
+        /// overrides the Equals method to check if the sides are equal
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>bool</returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -130,6 +170,10 @@ namespace MTDClasses
             }
         }
 
+        /// <summary>
+        /// Gets the Hash code
+        /// </summary>
+        /// <returns>int</returns>
         public override int GetHashCode()
         {
             return ToString().GetHashCode();
