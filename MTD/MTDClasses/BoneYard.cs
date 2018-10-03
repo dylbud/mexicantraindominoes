@@ -12,7 +12,7 @@ namespace MTDClasses
     /// </summary>
     public class BoneYard
     {
-       private List<Domino> listOfDominoes = new List<Domino>();
+        private List<Domino> listOfDominoes = new List<Domino>();
 
         /// <summary>
         /// Constructor populates the list of all possible combinations from double blank to double maxDots
