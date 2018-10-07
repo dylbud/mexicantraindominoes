@@ -11,10 +11,11 @@ namespace MTDClasses
     /// </summary>
     public class Hand
     {
-        /*
+
         /// <summary>
         /// The list of dominos in the hand
         /// </summary>
+        private List<Domino> handOfDominos = new List<Domino>();
 
         /// <summary>
         /// Creates an empty hand
@@ -24,7 +25,7 @@ namespace MTDClasses
         }
 
         /// <summary>
-        /// Creates a hand of dominos from the boneyard.
+        /// Creates a hand of dominos from the boneyard.-switch statement and a for loop
         /// The number of dominos is based on the number of players
         /// 2–4 players: 10 dominoes each
         /// 5–6 players: 9 dominoes each
@@ -34,19 +35,60 @@ namespace MTDClasses
         /// <param name="numPlayers"></param>
         public Hand(BoneYard by, int numPlayers)
         {
+            int numDominoes = 0;
+            switch (numPlayers)
+            {
+                case 2:
+                case 3:
+                case 4:
+                    numDominoes = 10;                   
+                    break;
+                case 5:
+                case 6:
+                    numDominoes = 9;
+                    break;
+                case 7:
+                case 8:
+                    numDominoes = 7;
+                    break;
+            }
+            for (int i = 0; i< numDominoes; i++)
+            {
+                this.Add(by.Draw());
+            }
         }
 
         public void Add(Domino d)
         {
+            handOfDominos.Add(d);
         }
-
-
+        
+        
+        /// <summary>
+        /// Returns the count of the list of dominoes
+        /// </summary>
         public int Count
         {
+            get
+            {
+                return handOfDominos.Count;
+            }
+         
         }
 
         public bool IsEmpty
         {
+            get
+            {
+                if (Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
         /// <summary>
@@ -54,6 +96,10 @@ namespace MTDClasses
         /// </summary>
         public int Score
         {
+            get
+            {
+                return Count;
+            }
         }
 
         /// <summary>
@@ -62,14 +108,31 @@ namespace MTDClasses
         /// <param name="value">The number of dots on one side of the domino that you're looking for</param>
         public bool HasDomino(int value)
         {
+            for (int i = 0; i< Count; i++)
+            {
+                if (this[i].Side1 == value || this[i].Side2 == value)
+                {
+                    return true;
+                }
+            }             
+            return false;            
         }
 
         /// <summary>
         ///  DOes the hand contain a double of a certain value?
+        ///  for loop goes through the hand and checks with an if statement
         /// </summary>
         /// <param name="value">The number of (double) dots that you're looking for</param>
         public bool HasDoubleDomino(int value)
         {
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].Side1 == value && this[i].Side2 == value)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -77,10 +140,18 @@ namespace MTDClasses
         /// </summary>
         /// <param name="value">The number of dots on one side of the domino that you're looking for</param>
         /// <returns>-1 if the domino doesn't exist in the hand</returns>
+        /// <remarks>What if there is more than one that matches the value? Return the first one?</remarks>
         public int IndexOfDomino(int value)
         {
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].Side1 == value || this[i].Side2 == value)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
-
         /// <summary>
         /// The index of the do
         /// </summary>
@@ -88,6 +159,14 @@ namespace MTDClasses
         /// <returns>-1 if the domino doesn't exist in the hand</returns>
         public int IndexOfDoubleDomino(int value)
         {
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].Side1 == value && this[i].Side2 == value)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         /// <summary>
@@ -96,14 +175,32 @@ namespace MTDClasses
         /// <returns>-1 if there isn't a double in the hand</returns>
         public int IndexOfHighDouble()
         {
+            
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Domino this[int index]
         {
+            get
+            {
+                return handOfDominos[index];
+            }
         }
 
+        /// <summary>
+        /// Remove at list 
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveAt(int index)
         {
+            Domino domino;
+            domino = this[index];
+            handOfDominos.Remove(domino);
+            
         }
 
         /// <summary>
@@ -115,6 +212,16 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino GetDomino(int value)
         {
+            Domino domino;
+
+            if (HasDomino(value))
+            {
+                int index = IndexOfDomino(value);
+                domino = this[index];
+                RemoveAt(index);
+                return domino;
+            }
+            return null;
         }
 
         /// <summary>
@@ -134,6 +241,8 @@ namespace MTDClasses
         /// <param name="by"></param>
         public void Draw(BoneYard by)
         {
+            Domino d = by.Draw(); 
+            handOfDominos.Add(d);
         }
 
         /// <summary>
@@ -175,6 +284,6 @@ namespace MTDClasses
         public override string ToString()
         {
         }
-        */
+        
     }
 }
