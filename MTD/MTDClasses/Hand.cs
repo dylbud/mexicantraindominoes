@@ -98,7 +98,12 @@ namespace MTDClasses
         {
             get
             {
-                return Count;
+                int score = 0;
+                for (int i = 0; i < Count; i++)
+                {
+                    score = score + this[i].Score;
+                }
+                return score;
             }
         }
 
@@ -174,8 +179,21 @@ namespace MTDClasses
         /// </summary>
         /// <returns>-1 if there isn't a double in the hand</returns>
         public int IndexOfHighDouble()
-        {
-            
+        {        
+            int highDouble = -1;
+            int index = -1;
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].IsDouble())
+                {
+                    if (this[i].Side1 > highDouble)
+                    {
+                        highDouble = this[i].Side1;
+                        index = i;
+                    }
+                }
+            }
+            return index;
         }
 
         /// <summary>
@@ -233,6 +251,16 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino GetDoubleDomino(int value)
         {
+            Domino domino;
+
+            if (HasDoubleDomino(value))
+            {
+                int index = IndexOfDomino(value);
+                domino = this[index];
+                RemoveAt(index);
+                return domino;
+            }
+            return null;
         }
 
         /// <summary>
@@ -256,6 +284,20 @@ namespace MTDClasses
         /// <param name="t"></param>
         private void Play(int index, Train t)
         {
+            Domino d = this[index];
+            if (d.Side1 != t.PlayableValue)
+            {
+                d.Flip();
+            }
+            if (d.Side1 == t.PlayableValue)
+            {
+                RemoveAt(index);
+                t.Play(this, d);
+            }
+            else
+            {
+                throw new ArgumentException("Cannot be played!");
+            }
         }
 
         /// <summary>
@@ -267,11 +309,23 @@ namespace MTDClasses
         /// </summary>
         public void Play(Domino d, Train t)
         {
+            for (int i = 0; i < Count; i ++)
+            {
+                if (this[i].Score == d.Score)
+                {
+                   if (this[i].Side1 == d.Side1 || this[i].Side1 == d.Side2)
+                    {
+                        Play(i, t);
+                        return;
+                    }
+                }
+            }
+            throw new ArgumentException("Domino is not in hand");
         }
 
         /// <summary>
         /// Plays the first playable domino in the hand on the train
-        /// Removes the domino from the hand.
+        /// Removes the domino from the hand. -getDOmino method??
         /// Returns the domino.
         /// Throws an exception if no dominos in the hand are playable.
         /// </summary>
@@ -279,10 +333,34 @@ namespace MTDClasses
         /// <returns></returns>
         public Domino Play(Train t)
         {
+            bool mustFlip;
+            for (int i = 0; i < Count; i++)
+            {
+                if (t.IsPlayable(this, this[i], out mustFlip))
+                {
+                    if (mustFlip)
+                    {
+                        this[i].Flip();
+                    }
+                    Play(i, t);
+                    return this[i];
+                }
+            }
+            throw new ArgumentException("You have nothing to play");
         }
-
+        /// <summary>
+        /// returns a string listing the hand of dominoes
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
+            string output = "";
+            foreach (Domino d in handOfDominos)
+            {
+                output += d.ToString() + "\n";
+            }
+
+            return output;
         }
         
     }

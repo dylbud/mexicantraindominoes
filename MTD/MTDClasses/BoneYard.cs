@@ -24,7 +24,7 @@ namespace MTDClasses
             for ( int i = 0; i<= maxDots; i++)
             {
               
-                for (int j = 0; j<= maxDots; j++)
+                for (int j = i; j<= maxDots; j++) //increments without duplicates?
                 {
                     Domino domino = new Domino(i, j);
                     listOfDominoes.Add(domino);
