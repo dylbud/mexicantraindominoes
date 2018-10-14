@@ -25,12 +25,13 @@ namespace MTDClasses
         }
 
         /// <summary>
-        /// Constructor
+        /// Constructor. 
         /// </summary>
         /// <param name="engValue"></param>
         public Train(int engValue)
         {
-            Domino dom = new Domino(engValue, engValue);
+            //Domino dom = new Domino(engValue, engValue);
+            EngineValue = engValue;
 
         }
 

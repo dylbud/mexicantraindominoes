@@ -21,5 +21,12 @@
       <FileName>BoneYard.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="MTDClasses.Train">
+    <Position X="6" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAJCAAAAAAAAAIAECIAQAAQAAAAAAAoAgAAAAAAAAAA=</HashCode>
+      <FileName>Train.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

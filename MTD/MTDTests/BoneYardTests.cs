@@ -38,6 +38,7 @@ namespace MTDTests
             //Assert.AreEqual(expected, actual);
 
             Assert.IsInstanceOf<BoneYard>(boneYard);
+            Assert.AreEqual(91, boneYard3.DominosRemaining);
 
         }
 

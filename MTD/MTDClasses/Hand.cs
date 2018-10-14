@@ -342,8 +342,9 @@ namespace MTDClasses
                     {
                         this[i].Flip();
                     }
+                    Domino d = this[i];
                     Play(i, t);
-                    return this[i];
+                    return d;
                 }
             }
             throw new ArgumentException("You have nothing to play");
