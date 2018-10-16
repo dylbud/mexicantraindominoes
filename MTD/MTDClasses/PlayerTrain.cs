@@ -21,6 +21,7 @@ namespace MTDClasses
         /// <param name="h"></param>
         public PlayerTrain(Hand h): base()
         {
+            hand = h;
         }
 
         /// <summary>
@@ -30,6 +31,7 @@ namespace MTDClasses
         /// <param name="engineValue">Represents the first playable value on the train</param>
         public PlayerTrain(Hand h, int engineValue) : base (engineValue)
         {
+            hand = h;
         }
 
         ///<summary>
@@ -72,8 +74,9 @@ namespace MTDClasses
         public override bool IsPlayable(Hand h, Domino d, out bool mustFlip)
         {
             return IsPlayable(d, out mustFlip);
+            
 
         }
-        
+
     }
 }

@@ -62,7 +62,7 @@ namespace MTDTests
         [Test]
         public void TestBoneYardDominosRemaining()
         {
-            int expected = 8;
+            int expected = 5;
             boneYard2.Draw();
             int actual = boneYard2.DominosRemaining;
             Assert.AreEqual(expected, actual);
