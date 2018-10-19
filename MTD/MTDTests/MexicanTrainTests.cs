@@ -28,6 +28,9 @@ namespace MTDTests
             h = new Hand();
             t = new MexicanTrain();
             t.Add(d11);
+            h.Add(d12);
+            h.Add(d23);
+            h.Add(d31);
         }
 
 

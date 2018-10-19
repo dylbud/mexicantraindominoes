@@ -22,6 +22,7 @@ namespace MTDClasses
         /// </summary>
         public Hand()
         {
+
         }
 
         /// <summary>
@@ -113,14 +114,15 @@ namespace MTDClasses
         /// <param name="value">The number of dots on one side of the domino that you're looking for</param>
         public bool HasDomino(int value)
         {
-            for (int i = 0; i< Count; i++)
-            {
-                if (this[i].Side1 == value || this[i].Side2 == value)
-                {
-                    return true;
-                }
-            }             
-            return false;            
+            return (IndexOfDomino(value) != -1);
+            //for (int i = 0; i< Count; i++)
+            //{
+            //    if (this[i].Side1 == value || this[i].Side2 == value)
+            //    {
+            //        return true;
+            //    }
+            //}             
+            //return false;            
         }
 
         /// <summary>
@@ -130,14 +132,15 @@ namespace MTDClasses
         /// <param name="value">The number of (double) dots that you're looking for</param>
         public bool HasDoubleDomino(int value)
         {
-            for (int i = 0; i < Count; i++)
-            {
-                if (this[i].Side1 == value && this[i].Side2 == value)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return (IndexOfDoubleDomino(value) != -1);
+            //for (int i = 0; i < Count; i++)
+            //{
+            //    if (this[i].Side1 == value && this[i].Side2 == value)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //return false;
         }
 
         /// <summary>
@@ -231,10 +234,10 @@ namespace MTDClasses
         public Domino GetDomino(int value)
         {
             Domino domino;
+            int index = IndexOfDomino(value);
 
-            if (HasDomino(value))
+            if (index != -1)
             {
-                int index = IndexOfDomino(value);
                 domino = this[index];
                 RemoveAt(index);
                 return domino;
@@ -252,10 +255,11 @@ namespace MTDClasses
         public Domino GetDoubleDomino(int value)
         {
             Domino domino;
+            int index = IndexOfDoubleDomino(value);
 
-            if (HasDoubleDomino(value))
+            if (index != -1)
             {
-                int index = IndexOfDomino(value);
+               
                 domino = this[index];
                 RemoveAt(index);
                 return domino;

@@ -13,7 +13,7 @@ namespace MTDClasses
         /// <summary>
         /// Constructor
         /// </summary>
-        public MexicanTrain()
+        public MexicanTrain() : base()//***call base class constructor***
         {
 
         }
@@ -22,13 +22,13 @@ namespace MTDClasses
         /// Constructor takes an int parameter
         /// </summary>
         /// <param name="engineValue"></param>
-        public MexicanTrain(int engineValue)
+        public MexicanTrain(int engineValue) : base()//***call base class constructor***
         {
 
         }
 
         /// <summary>
-        ///???
+        ///****overrides abstract IsPlayable***
         /// </summary>
         /// <param name="h"></param>
         /// <param name="d"></param>
@@ -37,6 +37,8 @@ namespace MTDClasses
         public override bool IsPlayable(Hand h, Domino d, out bool mustFlip)
         {
             return IsPlayable(d, out mustFlip);
+            
+                    
         }
     }
 

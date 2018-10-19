@@ -73,9 +73,16 @@ namespace MTDClasses
         /// <returns></returns>
         public override bool IsPlayable(Hand h, Domino d, out bool mustFlip)
         {
-            return IsPlayable(d, out mustFlip);
-            
+            if (h == hand || isOpen)
 
+            {
+                return IsPlayable(d, out mustFlip);
+
+            }
+            mustFlip = false;
+            return false;
+
+           
         }
 
     }

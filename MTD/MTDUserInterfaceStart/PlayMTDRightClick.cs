@@ -181,9 +181,11 @@ namespace MTDUserInterface
             computersTrain = new PlayerTrain(computersHand, highestDouble.Side1);
             mexicanTrain = new MexicanTrain(highestDouble.Side1);
 
-           
-            //LoadDomino(playersHandPbs, );
-            //LoadHand(playersHandPbs, playersHand);
+                      
+            LoadHand(playersHandPbs, playersHand);
+
+
+            //EnableUsersHandPB(playersHandPbs);
 
 
 

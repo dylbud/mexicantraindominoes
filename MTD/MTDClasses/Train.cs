@@ -22,6 +22,7 @@ namespace MTDClasses
         /// </summary>
         public Train()
         {
+
         }
 
         /// <summary>
@@ -89,9 +90,12 @@ namespace MTDClasses
         {
             get
             {
-                Domino d = dominos[Count-1];
+                Domino d = dominos[Count - 1];
                 return d;
+                            
             }
+            //****if count = 0 return null?****
+             
         }
 
         /// <summary>
@@ -154,11 +158,12 @@ namespace MTDClasses
         /// <param name="h"></param>
         /// <param name="d"></param>
         //assumes the domino has already been removed from the hand
+        //***needs to use the hand, call isPlayable method using h, defined in each class not base class****
         public void Play(Hand h, Domino d)
         {
             bool mustFlip;
             // remove domino from hand
-            if (IsPlayable(d, out mustFlip))
+            if (IsPlayable(h, d, out mustFlip))
             {
                 if (mustFlip == true)
                 {
