@@ -163,29 +163,73 @@ namespace MTDUserInterface
             int pDIndex = playersHand.IndexOfHighDouble();
             int cDIndex = computersHand.IndexOfHighDouble();
             Domino highestDouble = null;
+            bool playerGoesFirst = true;
 
             if (playersHand[pDIndex].Side1 > computersHand[cDIndex].Side1)
             {
-                //player goes first
+                //player goes first              
                 highestDouble = playersHand[pDIndex];
                 playersHand.RemoveAt(pDIndex);
                 LoadDomino(enginePB, highestDouble);//the highest double picture box
             }
             else if (playersHand[pDIndex].Side1 < computersHand[cDIndex].Side1)
             {
-                highestDouble = playersHand[cDIndex];
+                playerGoesFirst = false;
+                highestDouble = computersHand[cDIndex];
                 computersHand.RemoveAt(cDIndex);
                 LoadDomino(enginePB, highestDouble);
             }
+
             playersTrain = new PlayerTrain(playersHand, highestDouble.Side1);
             computersTrain = new PlayerTrain(computersHand, highestDouble.Side1);
             mexicanTrain = new MexicanTrain(highestDouble.Side1);
 
-                      
+            playersHandPbs = new List<PictureBox>();
+            for (int i = 0; i < playersHand.Count; i++)
+            {
+                playersHandPbs.Add(CreateUserHandPB(i));
+            }
+
             LoadHand(playersHandPbs, playersHand);
 
+            computersTrainPbs = new List<PictureBox>(5);
+            computersTrainPbs.Add(compTrainPB1);
+            computersTrainPbs.Add(compTrainPB2);
+            computersTrainPbs.Add(compTrainPB3);
+            computersTrainPbs.Add(compTrainPB4);
+            computersTrainPbs.Add(compTrainPB5);
 
-            //EnableUsersHandPB(playersHandPbs);
+            playersTrainPbs = new List<PictureBox>(5);
+            playersTrainPbs.Add(userTrainPB1);
+            playersTrainPbs.Add(userTrainPB2);
+            playersTrainPbs.Add(userTrainPB3);
+            playersTrainPbs.Add(userTrainPB4);
+            playersTrainPbs.Add(userTrainPB5);
+
+            mexicanTrainPbs = new List<PictureBox>(5);
+            mexicanTrainPbs.Add(mexTrainPB1);
+            mexicanTrainPbs.Add(mexTrainPB2);
+            mexicanTrainPbs.Add(mexTrainPB3);
+            mexicanTrainPbs.Add(mexTrainPB4);
+            mexicanTrainPbs.Add(mexTrainPB5);
+
+
+            computerTrainStatusLabel.Text = "Open";
+            userTrainStatusLabel.Text = "Open";
+
+
+
+
+
+            if (playerGoesFirst)
+            {
+                EnableUserHandPBs();
+            }
+            else
+            {
+                //MakeComputerMove();
+            }
+          
 
 
 
