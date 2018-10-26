@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MTDClasses
 {
-    public class MexicanTrain : Train
+    public class MexicanTrain : Train 
     {
       
 

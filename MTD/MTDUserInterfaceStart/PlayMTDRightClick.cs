@@ -21,10 +21,14 @@ namespace MTDUserInterface
         PlayerTrain computersTrain, playersTrain;
         List<PictureBox> playersHandPbs;
         List<PictureBox> computersTrainPbs, playersTrainPbs, mexicanTrainPbs;
-      
+        Domino userDominoInPlay;             
+        int indexOfDominoInPlay;
+        
+
+
         //may need more instance variables!
-		#endregion
-		
+        #endregion
+
         #region Methods
 
         // loads the image of a domino into a picture box
@@ -112,11 +116,22 @@ namespace MTDUserInterface
         // disables the hand pbs and disables appropriate buttons
         public void UserPlayOnTrain(Domino d, Train train, List<PictureBox> trainPBs)
         {
-        }
+            //for (int i = 0; i <= playersTrainPbs.Count; i++)
+            //{
 
+            //}
+           
+            //for (int i = 0; i <= playersHandPbs.Count; i++)
+            //{
+               
+            //}
+
+        }
+      
         // adds a domino picture to a train
         public void ComputerPlayOnTrain(Domino d, Train train, List<PictureBox> trainPBs, int pbIndex)
         {
+            
         }
 
         // ai for computer move.
@@ -218,9 +233,6 @@ namespace MTDUserInterface
             userTrainStatusLabel.Text = "Open";
 
 
-
-
-
             if (playerGoesFirst)
             {
                 EnableUserHandPBs();
@@ -229,10 +241,7 @@ namespace MTDUserInterface
             {
                 //MakeComputerMove();
             }
-          
-
-
-
+                      
         }
 
         // remove all of the domino pictures for each train
@@ -246,7 +255,7 @@ namespace MTDUserInterface
         public PlayMTDRightClick()
         {
             InitializeComponent();
-            //SetUp();
+            SetUp();
         }
 
         // when the user right clicks on a domino, a context sensitive menu appears that
@@ -254,7 +263,7 @@ namespace MTDUserInterface
         // the event handler for the menu item is enabled and disabled appropriately.
         private void whichTrainMenu_Opening(object sender, CancelEventArgs e)
         {
-			/*
+			
             bool mustFlip = false;
             if (userDominoInPlay != null)
             {
@@ -262,7 +271,7 @@ namespace MTDUserInterface
                 computerTrainItem.Click -= new System.EventHandler(this.computerTrainItem_Click);
                 myTrainItem.Click -= new System.EventHandler(this.myTrainItem_Click);
 
-                if (mexicanTrain.IsPlayable(userHand, userDominoInPlay, out mustFlip))
+                if (mexicanTrain.IsPlayable(playersHand, userDominoInPlay, out mustFlip))
                 {
                     mexicanTrainItem.ForeColor = Color.Green;
                     mexicanTrainItem.Click += new System.EventHandler(this.mexicanTrainItem_Click);
@@ -271,7 +280,7 @@ namespace MTDUserInterface
                 {
                     mexicanTrainItem.ForeColor = Color.Red;
                 } 
-                if (computerTrain.IsPlayable(userHand, userDominoInPlay, out mustFlip))
+                if (computersTrain.IsPlayable(playersHand, userDominoInPlay, out mustFlip))
                 {
                     computerTrainItem.ForeColor = Color.Green;
                     computerTrainItem.Click += new System.EventHandler(this.computerTrainItem_Click);
@@ -280,7 +289,7 @@ namespace MTDUserInterface
                 {
                     computerTrainItem.ForeColor = Color.Red;
                 }
-                if (userTrain.IsPlayable(userHand, userDominoInPlay, out mustFlip))
+                if (playersTrain.IsPlayable(playersHand, userDominoInPlay, out mustFlip))
                 {
                     myTrainItem.ForeColor = Color.Green;
                     myTrainItem.Click += new System.EventHandler(this.myTrainItem_Click);
@@ -290,26 +299,26 @@ namespace MTDUserInterface
                     myTrainItem.ForeColor = Color.Red;
                 }
             }
-			*/
+			
         }
 
         // displays the context sensitve menu with the list of trains
         // sets the instance variables indexOfDominoInPlay and userDominoInPlay
         private void handPB_MouseDown(object sender, MouseEventArgs e)
         {
-			/*
+			
             PictureBox handPB = (PictureBox)sender;
-            indexOfDominoInPlay = userHandPBs.IndexOf(handPB);
+            indexOfDominoInPlay = playersHandPbs.IndexOf(handPB);
             if (indexOfDominoInPlay != -1)
             {
-                userDominoInPlay = userHand[indexOfDominoInPlay];
+                userDominoInPlay = playersHand[indexOfDominoInPlay];
                 if (e.Button == MouseButtons.Right)
                 {
                     whichTrainMenu.Show(handPB, 
                         handPB.Size.Width - 20, handPB.Size.Height - 20);
                 }
             }
-			*/
+			
         }
 
         // play on the mexican train, lets the computer take a move and then enables
@@ -328,6 +337,8 @@ namespace MTDUserInterface
         // hand pbs so the user can make the next move.
         private void myTrainItem_Click(object sender, EventArgs e)
         {
+            
+
         }
 
         // tear down and then set up

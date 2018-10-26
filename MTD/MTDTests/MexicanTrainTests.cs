@@ -46,22 +46,26 @@ namespace MTDTests
         [Test]
         public void TestIsPlayable2()
         {
-
-            bool mustFlip;
-            bool isPlayable = t.IsPlayable(h, d23, out mustFlip);
-            Assert.AreEqual(false, isPlayable);
-            Assert.AreEqual(false, mustFlip);
-        }
-
-        [Test]
-        public void TestIsPlayable3()
-        {
             bool mustFlip;
             bool isPlayable = t.IsPlayable(h, d31, out mustFlip);
             Assert.AreEqual(true, isPlayable);
             Assert.AreEqual(true, mustFlip);
         }
 
+
+        [Test]
+        public void TestIsPlayable3()
+        {
+            
+            bool mustFlip;
+            bool isPlayable = t.IsPlayable(h, d23, out mustFlip);
+            Assert.AreEqual(false, isPlayable);
+            Assert.AreEqual(false, mustFlip);
+            Assert.Throws<ArgumentException>(() => d23.Side1 = -1);
+            
+        }
+
+       
     }
 
 

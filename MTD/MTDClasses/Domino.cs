@@ -10,7 +10,7 @@ namespace MTDClasses
     /// The Domino class
     /// </summary>
     [Serializable()]
-    public class Domino
+    public class Domino : IComparable
     {
 
         /// <summary>
@@ -178,5 +178,17 @@ namespace MTDClasses
         {
             return ToString().GetHashCode();
         }
+
+        /// <summary>
+        /// Implements the IComparable 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int CompareTo(object obj)
+        {
+            return Score.CompareTo(obj);
+        }
+        
+      
     }
 }

@@ -115,14 +115,7 @@ namespace MTDClasses
         public bool HasDomino(int value)
         {
             return (IndexOfDomino(value) != -1);
-            //for (int i = 0; i< Count; i++)
-            //{
-            //    if (this[i].Side1 == value || this[i].Side2 == value)
-            //    {
-            //        return true;
-            //    }
-            //}             
-            //return false;            
+                       
         }
 
         /// <summary>
@@ -133,14 +126,7 @@ namespace MTDClasses
         public bool HasDoubleDomino(int value)
         {
             return (IndexOfDoubleDomino(value) != -1);
-            //for (int i = 0; i < Count; i++)
-            //{
-            //    if (this[i].Side1 == value && this[i].Side2 == value)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //return false;
+           
         }
 
         /// <summary>

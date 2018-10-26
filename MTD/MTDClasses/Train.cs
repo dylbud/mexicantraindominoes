@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 
 namespace MTDClasses
 {
     /// <summary>
     /// Represents a generic Train for MTD
     /// </summary>
-    public abstract class Train
+    public abstract class Train : IEnumerable<Domino>
     {
         private List<Domino> dominos = new List<Domino>();
 
@@ -195,6 +197,18 @@ namespace MTDClasses
             }
             
         }
+        /// <summary>
+        /// Implements IEnumerator
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<Domino> GetEnumerator()
+        {
+            return ((IEnumerable<Domino>)dominos).GetEnumerator();
+        }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<Domino>)dominos).GetEnumerator();
+        }
     }
 }
