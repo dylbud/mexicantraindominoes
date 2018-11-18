@@ -18,6 +18,7 @@ namespace MTDClasses
         /// The value of the first double domino
         /// </summary>
         private int engineValue;
+       
 
         /// <summary>
         /// Constructor
@@ -92,12 +93,19 @@ namespace MTDClasses
         {
             get
             {
-                Domino d = dominos[Count - 1];
-                return d;
-                            
-            }
+                if (Count == 0)
+                {
+                return null;
+                }
+
+                else 
+                {
+                return this[Count-1];
+                }
+                                            
+            } 
             //****if count = 0 return null?****
-             
+         
         }
 
         /// <summary>
@@ -107,10 +115,19 @@ namespace MTDClasses
         {
             get
             {
+                // LastDomino.Side2;
+                if (LastDomino == null)
+                
+                {
+                    return engineValue;
+                }
                 return LastDomino.Side2;
             }
         }
-
+        /// <summary>
+        /// adds a domino
+        /// </summary>
+        /// <param name="d"></param>
         public void Add(Domino d)
         {
             dominos.Add(d);
@@ -173,7 +190,10 @@ namespace MTDClasses
                 }
                 Add(d);
             }
-            
+            else
+            {
+                throw new ArgumentException("This domino cannot be played");
+            }
         }
 
         /// <summary>

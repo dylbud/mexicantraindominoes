@@ -22,7 +22,7 @@ namespace MTDClasses
         /// Constructor takes an int parameter
         /// </summary>
         /// <param name="engineValue"></param>
-        public MexicanTrain(int engineValue) : base()//***call base class constructor***
+        public MexicanTrain(int engineValue) : base(engineValue)//***call base class constructor***
         {
 
         }

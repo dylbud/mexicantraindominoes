@@ -116,22 +116,47 @@ namespace MTDUserInterface
         // disables the hand pbs and disables appropriate buttons
         public void UserPlayOnTrain(Domino d, Train train, List<PictureBox> trainPBs)
         {
-            //for (int i = 0; i <= playersTrainPbs.Count; i++)
+            playersHand.Play(d, train);
+            RemoveDominoFromPB(indexOfDominoInPlay, playersHandPbs);
+            RemovePBFromForm(playersHandPbs[indexOfDominoInPlay]);
+            playersHandPbs.RemoveAt(indexOfDominoInPlay);
+            
+
+            for (int i = 0; i <= trainPBs.Count; i++)
+            {
+                if(trainPBs[i].Image == null) 
+                {
+                    LoadDomino(trainPBs[i], d);
+                    break;
+                }
+            }
+
+            //for (int i = 0; i < playersHandPbs.Count; i++)
             //{
+            //    RemoveDominoFromPB(i, playersHandPbs);
+            //    computerTrainStatusLabel.Text = "Open";
+            //    DisableUserHandPBs();
 
             //}
-           
-            //for (int i = 0; i <= playersHandPbs.Count; i++)
-            //{
-               
-            //}
+
+
 
         }
       
         // adds a domino picture to a train
-        public void ComputerPlayOnTrain(Domino d, Train train, List<PictureBox> trainPBs, int pbIndex)
+        //public void ComputerPlayOnTrain(Domino d, Train train, List<PictureBox> trainPBs, int pbIndex)
+        public void ComputerPlayOnTrain(Train train, List<PictureBox> trainPBs)
         {
-            
+           
+            Domino d = computersHand.Play(train);
+            for (int i = 0; i <= trainPBs.Count; i++)
+            {
+                if (trainPBs[i].Image == null)
+                {
+                    LoadDomino(trainPBs[i], d);
+                    break;
+                }
+            }
         }
 
         // ai for computer move.
@@ -144,20 +169,81 @@ namespace MTDUserInterface
         // returns false
         public bool MakeComputerMove(bool canDraw)
         {
+            try
+            {
+                //Domino d = computersHand.GetDomino(computersTrain.PlayableValue);
+                ComputerPlayOnTrain(computersTrain, computersTrainPbs);
+            }
+            catch
+            {
+                try
+                {
+                    //Domino d = computersHand.GetDomino(mexicanTrain.PlayableValue);
+                    ComputerPlayOnTrain(mexicanTrain, mexicanTrainPbs);
+                }
+                catch
+                {
+                    try
+                    {
+                        //Domino d = computersHand.GetDomino(playersTrain.PlayableValue);
+                        ComputerPlayOnTrain(playersTrain, playersTrainPbs);
+                    }
+                    catch
+                    {
+                        if(canDraw == true)
+                        {
+                            //Draw();???
+                            return false;
+                        }
+                        return false;
+
+                    }
+                }
+            }
 			return true;
         }
 
+        public void UpdateTrainStatusLabels()
+        {
+            if (playersTrain.IsOpen == true)
+            {
+                userTrainStatusLabel.Text = "Open";
+            }
+            else
+            {
+                userTrainStatusLabel.Text = "Closed";
+            }
+            if (computersTrain.IsOpen == true)
+            {
+                computerTrainStatusLabel.Text = "Open";
+            }
+            else
+            {
+                computerTrainStatusLabel.Text = "Closed";
+            }
+        }
         // update labels on the UI and disable the users hand
         // call MakeComputerMove (maybe twice)
         // update the labels on the UI
         // determine if the computer won or if it's now the user's turn
         public void CompleteComputerMove()
         {
+            UpdateTrainStatusLabels();
+            DisableUserHandPBs();
+            bool computerMoved = MakeComputerMove(true);
+            if(computerMoved == false)
+            {
+                MakeComputerMove(false);
+            }
+            EnableUserMove();            
         }
 
         // enable the hand pbs, buttons and update labels on the UI
         public void EnableUserMove()
         {
+            
+           EnableUserHandPBs();
+            UpdateTrainStatusLabels();
         }
 
         // instantiate boneyard and hands
@@ -180,14 +266,15 @@ namespace MTDUserInterface
             Domino highestDouble = null;
             bool playerGoesFirst = true;
 
-            if (playersHand[pDIndex].Side1 > computersHand[cDIndex].Side1)
+            // player must have positive index value AND computer must either have negative index OR lower value on the domino, in order for player to go first.
+            if (pDIndex >= 0 && (cDIndex == -1 || (playersHand[pDIndex].Side1 > computersHand[cDIndex].Side1)))
             {
                 //player goes first              
                 highestDouble = playersHand[pDIndex];
                 playersHand.RemoveAt(pDIndex);
                 LoadDomino(enginePB, highestDouble);//the highest double picture box
             }
-            else if (playersHand[pDIndex].Side1 < computersHand[cDIndex].Side1)
+            else if (cDIndex >= 0 && (pDIndex == -1 || (playersHand[pDIndex].Side1 < computersHand[cDIndex].Side1)))
             {
                 playerGoesFirst = false;
                 highestDouble = computersHand[cDIndex];
@@ -228,18 +315,16 @@ namespace MTDUserInterface
             mexicanTrainPbs.Add(mexTrainPB4);
             mexicanTrainPbs.Add(mexTrainPB5);
 
-
-            computerTrainStatusLabel.Text = "Open";
-            userTrainStatusLabel.Text = "Open";
+            UpdateTrainStatusLabels();
 
 
-            if (playerGoesFirst)
+            if (playerGoesFirst == true)
             {
                 EnableUserHandPBs();
             }
             else
             {
-                //MakeComputerMove();
+                CompleteComputerMove();
             }
                       
         }
@@ -325,20 +410,24 @@ namespace MTDUserInterface
         // hand pbs so the user can make the next move.
         private void mexicanTrainItem_Click(object sender, EventArgs e)
         {
+            UserPlayOnTrain(userDominoInPlay, mexicanTrain, mexicanTrainPbs);
+            CompleteComputerMove();
         }
 
         // play on the computer train, lets the computer take a move and then enables
         // hand pbs so the user can make the next move.
         private void computerTrainItem_Click(object sender, EventArgs e)
         {
+            UserPlayOnTrain(userDominoInPlay, computersTrain, computersTrainPbs);
+            CompleteComputerMove();
         }
 
         // play on the user train, lets the computer take a move and then enables
         // hand pbs so the user can make the next move.
         private void myTrainItem_Click(object sender, EventArgs e)
         {
-            
-
+            UserPlayOnTrain(userDominoInPlay, playersTrain, playersTrainPbs);
+            CompleteComputerMove();
         }
 
         // tear down and then set up
@@ -362,7 +451,7 @@ namespace MTDUserInterface
         private void PlayMTDRightClick_Load(object sender, EventArgs e)
         {
             // register the boneyard almost empty event and it's delegate here
-            SetUp();
+            //SetUp();
         }
 
 		// event handler for handling the boneyard almost empty event

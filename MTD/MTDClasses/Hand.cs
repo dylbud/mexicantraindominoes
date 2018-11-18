@@ -194,7 +194,14 @@ namespace MTDClasses
         {
             get
             {
-                return handOfDominos[index];
+                if (index >= 0) 
+                {
+                    return handOfDominos[index];
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

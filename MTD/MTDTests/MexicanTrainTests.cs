@@ -56,17 +56,48 @@ namespace MTDTests
         [Test]
         public void TestIsPlayable3()
         {
-            
+
             bool mustFlip;
             bool isPlayable = t.IsPlayable(h, d23, out mustFlip);
             Assert.AreEqual(false, isPlayable);
             Assert.AreEqual(false, mustFlip);
             Assert.Throws<ArgumentException>(() => d23.Side1 = -1);
-            
+
         }
 
-       
+        [Test]
+        public void TestFOREACH()
+        {
+            foreach (Domino d in t)
+                Assert.AreEqual(d, d11);
+        }
+
+        [Test]
+        public void TestPlay1()
+        {
+            t.Play(h, d12);
+            Assert.AreEqual(2, t.PlayableValue);
+            Assert.AreEqual(2, t.Count);
+        }
+
+        [Test]
+        public void TestPlay2()
+        {
+            
+
+            t.Play(h, d31);
+            Assert.AreEqual(3, t.PlayableValue);
+            Assert.AreEqual(2, t.Count);
+        }
+
+        [Test]
+        public void TestPlay3()
+        {
+            Assert.Throws<ArgumentException>(() => t.Play(h, d23));
+            Assert.AreEqual(t.PlayableValue, 1);
+            Assert.AreEqual(t.Count, 1);
+        }
+
+        
     }
-
-
 }
